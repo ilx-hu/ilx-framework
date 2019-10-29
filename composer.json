@@ -1,0 +1,30 @@
+{
+    "name": "ilx-dev-team/cityportal",
+    "type": "application",
+    "description": "CityPortal framework",
+    "authors": [
+        {
+            "name": "Attila Nagy",
+            "email": "attila.nagy@ilx.hu",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Ilx\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.2",
+        "nagyatka/kodiak": "dev-master",
+        "nagyatka/basil": "v1.0.*",
+        "monolog/monolog": "2.0.0",
+        "swiftmailer/swiftmailer": "v6.2.1",
+        "ulrichsg/getopt-php": "3.2.*",
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "ext-openssl": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
