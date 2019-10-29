@@ -92,18 +92,6 @@ hogy módosítani szeretnénk egy használt modul sablonjait, ami sok kérdést 
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="resource-ok-kezelese-a-deployment-soran">
-<h2>Resource-ok kezelése a deployment során<a class="headerlink" href="#resource-ok-kezelese-a-deployment-soran" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
-<p>Amikor készen van az alkalmazásunk és szeretnénk azt tetszőleges helyen deploy-olni felmerül a probléma, hogy a
-projekt fejlesztése során hozzányúltunk más modulok resource fájljaihoz, amiknek a változtatásai nem fognak megjelenni
-a telepítés során. Miért? Amikor lefuttatjuk az install parancsot:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">php</span> <span class="nb">bin</span><span class="o">/</span><span class="n">ilx</span><span class="o">.</span><span class="n">php</span> <span class="n">install</span> <span class="n">modules</span><span class="o">.</span><span class="n">json</span>
-</pre></div>
-</div>
-<p>a keretrendszer végighalad a beállított modulokon, inicializálja őket, feloldja a függőségeket, lefuttatja a telepítő
-szkripteket és ami számunkra probléma, átmásolja a megfelelő helyekre a sablon fájlokat. Ez azt jelenti, hogy
-alapértelmezetten nem fognak megjelenni azok a változtatásokat, amiket mi más modulok sablonjain végrehajtottunk.</p>
-</div>
 </div>
 
 
@@ -116,7 +104,6 @@ alapértelmezetten nem fognak megjelenni azok a változtatásokat, amiket mi má
   <ul>
 <li><a class="reference internal" href="#">Resource-ok kezelése</a><ul>
 <li><a class="reference internal" href="#resource-ok-kezelese-a-fejlesztes-kozben">Resource-ok kezelése a fejlesztés közben</a></li>
-<li><a class="reference internal" href="#resource-ok-kezelese-a-deployment-soran">Resource-ok kezelése a deployment során</a></li>
 </ul>
 </li>
 </ul>

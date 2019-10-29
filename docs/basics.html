@@ -42,13 +42,30 @@
             
   <div class="section" id="ilx-alapok">
 <h1>Ilx alapok<a class="headerlink" href="#ilx-alapok" title="Hivatkozás erre a fejezetcímre">¶</a></h1>
-<p>Oldal fejlesztés alatt… (amint teljesen kialakult az alkamazás felépítése meg lesz írva.)</p>
+<p>Ezen az oldalon találod az Ilx alapjainak bemutatását.</p>
 <div class="section" id="kodiak-felepitese">
 <h2>Kodiak felépítése<a class="headerlink" href="#kodiak-felepitese" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
-<p>röviden a működésről: mi az hogy hook, service provider, mi az hogy environmental változó</p>
+<p>A Kodiak egy egyszerű php nyelven készült web keretrendszer, amelynek segítségével php alkalmazásokat fejleszhetünk MVC
+architektúrában. Az alábbiakban egy rövid összefoglalót adunk a Kodiak működéséről, ami szükséges az Ilx használatához.</p>
+<p>A Kodiak egy monolitikus konfigurációban gondolkozik, amely tartalmaz minden szükséges beállítást az alkalmazás
+futtatásához. A Kodiak ezt a konfigurációt felhasználva képes futtatni az alkalmazásunkat. A konfiguráció 5 fő pontot
+tartalmaz:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Környezeti változók (environment):</strong> Környezeti változónak minősülnek azok a kulcs-érték párok, amelyekre az alkalmazás tetszőleges pontján szükség lehet. Ilyen lehet az időzóna vagy hogy milyen módban futtatjuk az alkalmazást (development, product)</li>
+<li><strong>Hook-ok (hooks):</strong> Olyan elemek, amelyeknek minden a webszerver felé indított kérés kezelése előtt le kell futtatni. Tipikusan jó példa erre a session inicializálása vagy annak vizsgálata, hogy a felhasználó jogosult-e egy adott weboldal megnyitására.</li>
+<li><strong>Service-ek (services):</strong> Olyan szolgáltatások, amelyekre nincsen szükség minden kérés kezelésénél, de elérésük alkalmazás tetszőleges pontján fontosak. Például ilyen szolgáltatás lehet az email-ek küldése, loggolás, weboldal tartalmának renderelése.</li>
+<li><strong>Route-k (routes):</strong> Az alkalmazásból elérhető útvonalak listája, amely minden útvonal esetén tartalmazza, hogy melyik Controller melyik metódusa kezeli az adott útvonalat.</li>
+<li><strong>Router (router):</strong> Tartalmazza, hogy milyen módszer alapján történjen az útvonalak leképezése. Ezzel nem kell foglalkozunk.</li>
+</ul>
+</div></blockquote>
+<a class="reference internal image-reference" href="_images/kodiak.svg"><div align="center" class="align-center"><img alt="_images/kodiak.svg" height="300px" src="_images/kodiak.svg" /></div>
+</a>
 </div>
 <div class="section" id="ilx-felepitese">
 <h2>Ilx felépítése<a class="headerlink" href="#ilx-felepitese" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
+<p>Az Ilx a Kodiak-re épülő rendszer, amely
+A plusz funkcionalitás, amit hozzátesz a Kodiak-hez, hogy a már korábba</p>
 <p>mi az hogy modul, hogyan kapcsolódnak egymáshoz, hogyan indul el az alkalmazás
 Modulok: jól körülhatárolt elem, ami logikailag egy fukncionalitás köré épül.</p>
 </div>

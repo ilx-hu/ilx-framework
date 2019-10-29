@@ -24,3 +24,4 @@ Tartalom
    resources
    modules
    commands
+   deployment
