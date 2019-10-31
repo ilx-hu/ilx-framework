@@ -1,3 +1,5 @@
+.. _custom-module-label:
+
 Saját modul fejlesztése
 *************************
 

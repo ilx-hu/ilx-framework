@@ -1,7 +1,14 @@
+.. _modules-label:
+
 Modulok
 ********
 
-Gyűjtő oldal a modulok leírásához, kibővíteni ...
+A modulok egy Ilx alkalmazás alap építőelemei. Egy modul egy jól körülhatárolható funkcionalitást valósít meg, ami
+könnyen beilleszthető az alkalmazásunkba.
+
+Az alábbiakban az Ilx által biztosított modulok részletes leírását találod, illetve a :ref:`custom-module-label` oldalon
+egy saját modul definiálásának a lépéseit mutatjuk be.
+
 
 
 Modul lista

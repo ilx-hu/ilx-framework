@@ -42,14 +42,14 @@
             
   <div class="section" id="ilx-alapok">
 <h1>Ilx alapok<a class="headerlink" href="#ilx-alapok" title="Hivatkozás erre a fejezetcímre">¶</a></h1>
-<p>Ezen az oldalon találod az Ilx alapjainak bemutatását.</p>
-<div class="section" id="kodiak-felepitese">
-<h2>Kodiak felépítése<a class="headerlink" href="#kodiak-felepitese" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
+<div class="section" id="a-kodiak-mukodese">
+<h2>A Kodiak működése<a class="headerlink" href="#a-kodiak-mukodese" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
 <p>A Kodiak egy egyszerű php nyelven készült web keretrendszer, amelynek segítségével php alkalmazásokat fejleszhetünk MVC
-architektúrában. Az alábbiakban egy rövid összefoglalót adunk a Kodiak működéséről, ami szükséges az Ilx használatához.</p>
+architektúrában. Az alábbiakban egy rövid összefoglalót adunk a Kodiak működéséről, ami szükséges az Ilx helyes
+használatához.</p>
 <p>A Kodiak egy monolitikus konfigurációban gondolkozik, amely tartalmaz minden szükséges beállítást az alkalmazás
-futtatásához. A Kodiak ezt a konfigurációt felhasználva képes futtatni az alkalmazásunkat. A konfiguráció 5 fő pontot
-tartalmaz:</p>
+futtatásához. A Kodiak ezt a konfigurációt felhasználva képes futtatni az alkalmazásunkat. A konfigurációs fájl 5 fő
+elemet tartalmaz:</p>
 <blockquote>
 <div><ul class="simple">
 <li><strong>Környezeti változók (environment):</strong> Környezeti változónak minősülnek azok a kulcs-érték párok, amelyekre az alkalmazás tetszőleges pontján szükség lehet. Ilyen lehet az időzóna vagy hogy milyen módban futtatjuk az alkalmazást (development, product)</li>
@@ -59,18 +59,50 @@ tartalmaz:</p>
 <li><strong>Router (router):</strong> Tartalmazza, hogy milyen módszer alapján történjen az útvonalak leképezése. Ezzel nem kell foglalkozunk.</li>
 </ul>
 </div></blockquote>
+<p>Ha ezeket az elemeket sikeresen beállítottuk a Kodiak minden egyes HTTP kérés esetén a konfigurációt értelmezve fogja
+lekezelni az adott kérést.</p>
 <a class="reference internal image-reference" href="_images/kodiak.svg"><div align="center" class="align-center"><img alt="_images/kodiak.svg" height="300px" src="_images/kodiak.svg" /></div>
 </a>
+<dl class="docutils">
+<dt>A kérés kezelésének a lépései sorrendhelyesen a következők:</dt>
+<dd><ol class="first last arabic simple">
+<li>A Kodiak betölti az alkalmazás konfigurációt, és beregisztrálja magának a konfigurációban megadott elemeket</li>
+<li>Futtatja a definiált Hook-okat a megadott sorrendben. (Például egy Hook létrehozza a php session-t, egy másik ellenőrzi a jogosultságokat, stb.)</li>
+<li>Ha a Hook-ok sikeresen lefutottak és valamilyen ok (pl.: jogosultság hiánya) miatt nem kellett leállítani a kérés kezelését a konfigurációban megadott Router segítségével leképezi az Url-t egy Controller - metódus párosra</li>
+<li>Meghívja a Router által kiderített Controller megfelelő metódusát, ahol már a fejlesztő által definiált üzleti logika található.</li>
+<li>A metódusokban a fejlesztő hozzáfér mind a környezetiváltozókhoz és a Service-khez is.</li>
+</ol>
+</dd>
+</dl>
+<p>Példa környezeti változók hozzáféréséhez:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$timezone = Application::getEnv(&quot;timezone&quot;)
+</pre></div>
 </div>
-<div class="section" id="ilx-felepitese">
-<h2>Ilx felépítése<a class="headerlink" href="#ilx-felepitese" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
-<p>Az Ilx a Kodiak-re épülő rendszer, amely
-A plusz funkcionalitás, amit hozzátesz a Kodiak-hez, hogy a már korábba</p>
-<p>mi az hogy modul, hogyan kapcsolódnak egymáshoz, hogyan indul el az alkalmazás
-Modulok: jól körülhatárolt elem, ami logikailag egy fukncionalitás köré épül.</p>
+<p>Példa service hozzáférésre (itt most egy logger szolgáltatásra látsz példát)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$logger = Application::get(&quot;logger&quot;)
+</pre></div>
+</div>
+</div>
+<div class="section" id="az-ilx-mukodese">
+<h2>Az Ilx működése<a class="headerlink" href="#az-ilx-mukodese" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
+<p>Az Ilx a Kodiak-re épülő rendszer, amely célja kettős. Egyrészt eltünteti a Kodiak konfiguráció összeállításának
+komplexitását. Másrészt felgyorsítja a fejlesztési folyamatot, úgy hogy előre definiált dobozok segítségével a
+fejlesztőnek már csak a tényleges üzleti logika megírására kell koncentrálnia.</p>
+<p>Ezek alapján az Ilx a fejlesztő számára két fő szolgáltatást biztosít:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Definiál előre elkészített dobozokat, úgynevezett modulokat, amik egy logikailag jól körülhatárolt funkcionalitást valósítanak meg.</li>
+<li>Egyszerűen használható szkripteket biztosít a fejlesztők számára, amik a szükséges modulokat egy Kodiak alkalmazásba szervezik.</li>
+</ol>
+</div></blockquote>
+<a class="reference internal image-reference" href="_images/ilx.svg"><div align="center" class="align-center"><img alt="_images/ilx.svg" height="300px" src="_images/ilx.svg" /></div>
+</a>
+<p>Az elérhető parancsok listáját a <a class="reference internal" href="commands.html#commands-label"><span class="std std-ref">Parancsok</span></a> oldalon találod, míg az Ilx által biztosított modulokról a
+<a class="reference internal" href="modules.html#modules-label"><span class="std std-ref">Modulok</span></a>-ban találsz részletes leírást.</p>
 </div>
 <div class="section" id="elso-alkalmazasom">
 <h2>Első alkalmazásom<a class="headerlink" href="#elso-alkalmazasom" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
+<p>Egy új Ilx alkalmazás készítéséhez első lépésben</p>
 </div>
 </div>
 
@@ -83,8 +115,8 @@ Modulok: jól körülhatárolt elem, ami logikailag egy fukncionalitás köré �
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Ilx alapok</a><ul>
-<li><a class="reference internal" href="#kodiak-felepitese">Kodiak felépítése</a></li>
-<li><a class="reference internal" href="#ilx-felepitese">Ilx felépítése</a></li>
+<li><a class="reference internal" href="#a-kodiak-mukodese">A Kodiak működése</a></li>
+<li><a class="reference internal" href="#az-ilx-mukodese">Az Ilx működése</a></li>
 <li><a class="reference internal" href="#elso-alkalmazasom">Első alkalmazásom</a></li>
 </ul>
 </li>
