@@ -69,7 +69,81 @@ Az elérhető parancsok listáját a :ref:`commands-label` oldalon találod, mí
 Első alkalmazásom
 -------------------
 
-Egy új Ilx alkalmazás készítéséhez első lépésben
+Első lépésben le kell tölteni az Ilx-et composer segítségével::
+
+    composer require ilx-hu/ilx-framework
+
+Ha ez megtörtént a vendor/bin könyvtárban már ott lesz az ilx.php, ami az Ilx menedzsment szkriptjeit tartalmazza.
+A használható parancsok listáját a :ref:`commands-label` oldalon találod. Ezek közül egy új alkalmazás készítéséhez a
+quick-start parancsot lehet használni::
+
+    php vendor/bin/ilx.php quick-start
+
+A parancs futtatása során végighalad azokon a fő elemeken ami szükséges lehet az alkalmazás működéséhez és a megadott
+inputok alapján készíti el a modules.json-t. (A modules.json az aktuális working directoryban jön létre.)
+
+A modules.json tartalmazza az összes információt, ami leírja az alkalmazás felépítését. Van-e adatbázis kapcsolat, ha igen
+akkor hova kell kapcsolódni, kell-e authentikálni a felhasználókat, ha igen milyen módszerrel. Van-e levelező szerver amit
+használni kell, ha igen milyen email sablonok vannak...stb.
+
+Ha a "Generating project templates" kérdésre yes-szel válaszoltunk a modules.json mellett létrehoz egy src mappát, amiben:
+
+* három könyvtár található: Controller, Model, View,
+* és [Projectname]Module.php nevű fájl
 
 
+A három könyvtárban kell helyezni az alkalmazás specifikus részeit, míg a [Projectname]Module.php fájl azt határozza meg, hogy
+a három könyvtár tartalmát hogyan kell beilleszteni a Kodiak alkalmazásba. A [Projectname]Module.php beállításáról a
+:ref:`custom-module-label` oldalon olvashatsz.
+
+
+A modules.json-t felhasználva lehet telepíteni az Ilx rendszert az :ref:`install-cmd-label` paranccsal::
+
+    php vendor/bin/ilx.php install modules.json
+
+A telepítés után létrejön:
+
+* egy config könyvtár, amiben a conf.json tartalmazza a Kodiak konfigurációt. Ezt kézzel ne szerkesd, mert az itt végrehajtott változtatások felülíródnak a következő frissítésnél
+* egy view könyvtár, ami a használt twig fájlokat tartalmazza.
+* egy web könyvtár, ami az index.php-t tartalmazza (alkalmazás belépési pontja).
+
+.. warning::
+
+    Azok a view-k, amiket az src/View-ban definiálunk be vannak linkelve a view/[Projectname] alá (szimbolikus linkkel). Az src/View változásai emiatt automatikusan érvényre jutnak.
+
+
+Az src/Controller mappában hozzunk létre egy MyController.php fájlt, aminek legyen egy metódusa, ami kiírja, hogy hello world::
+
+    namespace Projectname\Controller;
+
+    class MyController
+    {
+        public function hello() {
+
+            return "hello world";
+        }
+    }
+
+Hogy kívülről is hívható legyen, a [Projectname]Module.php route-jainál hozzá kell adni a metódust egy tetszőleges url-hez::
+
+        function routes()
+    {
+        return [
+            [
+                "method"    => "GET",
+                "url"       => "/home",
+                "handler"   => MyController::class."::home",
+            ]
+        ];
+    }
+
+Ahhoz, hogy a változtatások érvényre jussanak egy :ref:`update-cmd-label` parancsot kell futtatnunk::
+
+    php vendor/bin/ilx.php update modules.json
+
+
+Ezután elindíthatjuk az alkalmazást a beépített php webszerverrel::
+
+    cd web
+    php -S 0.0.0.0:8801
 

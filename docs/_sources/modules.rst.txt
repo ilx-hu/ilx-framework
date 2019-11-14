@@ -7,7 +7,7 @@ A modulok egy Ilx alkalmazás alap építőelemei. Egy modul egy jól körülhat
 könnyen beilleszthető az alkalmazásunkba.
 
 Az alábbiakban az Ilx által biztosított modulok részletes leírását találod, illetve a :ref:`custom-module-label` oldalon
-egy saját modul definiálásnak a lépéseit mutatjuk be.
+egy saját modul definiálásának a lépéseit mutatjuk be.
 
 
 

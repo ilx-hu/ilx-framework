@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="hu">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Parancsok &#8212; Ilx 0.1.0 dokumentáció</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -13,11 +11,12 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="index" title="Tárgymutató" href="genindex.html" />
     <link rel="search" title="Keresés" href="search.html" />
-    <link rel="next" title="Resource-ok kezelése a deployment során" href="deployment.html" />
-    <link rel="prev" title="Saját modul fejlesztése" href="modules/custom_module.html" /> 
+    <link rel="next" title="Modulok" href="modules.html" />
+    <link rel="prev" title="Ilx alapok" href="basics.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigáció</h3>
@@ -26,10 +25,10 @@
           <a href="genindex.html" title="Általános tárgymutató"
              accesskey="I">nyitóoldal</a></li>
         <li class="right" >
-          <a href="deployment.html" title="Resource-ok kezelése a deployment során"
+          <a href="modules.html" title="Modulok"
              accesskey="N">következő</a> |</li>
         <li class="right" >
-          <a href="modules/custom_module.html" title="Saját modul fejlesztése"
+          <a href="basics.html" title="Ilx alapok"
              accesskey="P">előző</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Ilx 0.1.0 dokumentáció</a> &#187;</li> 
       </ul>
@@ -45,32 +44,28 @@
 <div class="toctree-wrapper compound">
 </div>
 <div class="section" id="quick-start">
-<h2>quick-start<a class="headerlink" href="#quick-start" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
+<span id="quick-start-cmd-label"></span><h2>quick-start<a class="headerlink" href="#quick-start" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
 <p>A parancs segítséget nyújt a modules.json leíró összeállításában. A modules.json tartalmazza a szükséges információkat
 az Ilx-Framework telepítéséhez.</p>
 <p>A parancs futtatása során végighalad azokon a fő elemeken ami szükséges lehet az alkalmazás működéséhez és a megadott
 inputok alapján készíti el a modules.json-t.</p>
 <div class="section" id="kapcsolok-es-parameterek">
 <h3>Kapcsolók és paraméterek<a class="headerlink" href="#kapcsolok-es-parameterek" title="Hivatkozás erre a fejezetcímre">¶</a></h3>
-<dl class="docutils">
-<dt><strong>Kötelező paraméter:</strong></dt>
-<dd><ul class="first last simple">
-<li>nincsen</li>
+<dl class="simple">
+<dt><strong>Kötelező paraméter:</strong></dt><dd><ul class="simple">
+<li><p>nincsen</p></li>
 </ul>
 </dd>
-<dt><strong>Opcionális paraméterek:</strong></dt>
-<dd><ul class="first last simple">
-<li>nincsen</li>
+<dt><strong>Opcionális paraméterek:</strong></dt><dd><ul class="simple">
+<li><p>nincsen</p></li>
 </ul>
 </dd>
-<dt><strong>Kötelező kapcsolók:</strong></dt>
-<dd><ul class="first last simple">
-<li>nincsen</li>
+<dt><strong>Kötelező kapcsolók:</strong></dt><dd><ul class="simple">
+<li><p>nincsen</p></li>
 </ul>
 </dd>
-<dt><strong>Opcionális kapcsolók:</strong></dt>
-<dd><ul class="first last simple">
-<li>nincsen</li>
+<dt><strong>Opcionális kapcsolók:</strong></dt><dd><ul class="simple">
+<li><p>nincsen</p></li>
 </ul>
 </dd>
 </dl>
@@ -78,7 +73,7 @@ inputok alapján készíti el a modules.json-t.</p>
 <div class="section" id="peldak">
 <h3>Példák<a class="headerlink" href="#peldak" title="Hivatkozás erre a fejezetcímre">¶</a></h3>
 <ol class="arabic">
-<li><p class="first">példa:</p>
+<li><p>példa:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">php</span> <span class="nb">bin</span><span class="o">/</span><span class="n">ilx</span><span class="o">.</span><span class="n">php</span> <span class="n">quick</span><span class="o">-</span><span class="n">start</span>
 </pre></div>
 </div>
@@ -87,32 +82,28 @@ inputok alapján készíti el a modules.json-t.</p>
 </div>
 </div>
 <div class="section" id="install">
-<h2>install<a class="headerlink" href="#install" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
+<span id="install-cmd-label"></span><h2>install<a class="headerlink" href="#install" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
 <p>A parancs használatával telepíthető egy Ilx-Framework alapú alkalmazás. A parancs 1 darab kötelező inputot vár,
 ami a modules.json fájl elérési útvonala.</p>
 <p>Az alkalmazás az aktuális working directoryhoz képest fogja elhelyezni a fájlokat. Célszerű emiatt ugyanabból a
 könyvtárból futtatni a parancsot, ahol a modules.json leírónk is van.</p>
 <div class="section" id="id1">
 <h3>Kapcsolók és paraméterek<a class="headerlink" href="#id1" title="Hivatkozás erre a fejezetcímre">¶</a></h3>
-<dl class="docutils">
-<dt><strong>Kötelező paraméter:</strong></dt>
-<dd><ul class="first last simple">
-<li><em>modules_config:</em> a modules.json fájl elérési útvonala, ami alapján frissítenénk az alkalmazást</li>
+<dl class="simple">
+<dt><strong>Kötelező paraméter:</strong></dt><dd><ul class="simple">
+<li><p><em>modules_config:</em> a modules.json fájl elérési útvonala, ami alapján frissítenénk az alkalmazást</p></li>
 </ul>
 </dd>
-<dt><strong>Opcionális paraméterek:</strong></dt>
-<dd><ul class="first last simple">
-<li>nincsen</li>
+<dt><strong>Opcionális paraméterek:</strong></dt><dd><ul class="simple">
+<li><p>nincsen</p></li>
 </ul>
 </dd>
-<dt><strong>Kötelező kapcsolók:</strong></dt>
-<dd><ul class="first last simple">
-<li>nincsen</li>
+<dt><strong>Kötelező kapcsolók:</strong></dt><dd><ul class="simple">
+<li><p>nincsen</p></li>
 </ul>
 </dd>
-<dt><strong>Opcionális kapcsolók:</strong></dt>
-<dd><ul class="first last simple">
-<li>nincsen</li>
+<dt><strong>Opcionális kapcsolók:</strong></dt><dd><ul class="simple">
+<li><p>nincsen</p></li>
 </ul>
 </dd>
 </dl>
@@ -120,7 +111,7 @@ könyvtárból futtatni a parancsot, ahol a modules.json leírónk is van.</p>
 <div class="section" id="id2">
 <h3>Példák<a class="headerlink" href="#id2" title="Hivatkozás erre a fejezetcímre">¶</a></h3>
 <ol class="arabic">
-<li><p class="first">példa:</p>
+<li><p>példa:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">php</span> <span class="nb">bin</span><span class="o">/</span><span class="n">ilx</span><span class="o">.</span><span class="n">php</span> <span class="n">install</span> <span class="n">modules</span><span class="o">.</span><span class="n">json</span>
 </pre></div>
 </div>
@@ -129,32 +120,28 @@ könyvtárból futtatni a parancsot, ahol a modules.json leírónk is van.</p>
 </div>
 </div>
 <div class="section" id="update">
-<h2>update<a class="headerlink" href="#update" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
+<span id="update-cmd-label"></span><h2>update<a class="headerlink" href="#update" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
 <p>A paraméterben megadott modules.json alapján frissíti az alkalmazást. Az update futattásánál alapvetően csak a
 Kodi konfiguráció frissül. Ha szeretnénk valamilyen resource-t is frissíteni vagy modul inicializáló szkripteket
-futtatni, akkor mellékelni kell a parancs mellé a meglfelő kapcsolót.</p>
+futtatni, akkor mellékelni kell a parancs mellé a megfelelő kapcsolót.</p>
 <div class="section" id="id3">
 <h3>Kapcsolók és paraméterek<a class="headerlink" href="#id3" title="Hivatkozás erre a fejezetcímre">¶</a></h3>
-<dl class="docutils">
-<dt><strong>Kötelező paraméter:</strong></dt>
-<dd><ul class="first last simple">
-<li><em>modules_config:</em> a modules.json fájl elérési útvonala, ami alapján frissítenénk az alkalmazást</li>
+<dl class="simple">
+<dt><strong>Kötelező paraméter:</strong></dt><dd><ul class="simple">
+<li><p><em>modules_config:</em> a modules.json fájl elérési útvonala, ami alapján frissítenénk az alkalmazást</p></li>
 </ul>
 </dd>
-<dt><strong>Opcionális paraméterek:</strong></dt>
-<dd><ul class="first last simple">
-<li>nincsen</li>
+<dt><strong>Opcionális paraméterek:</strong></dt><dd><ul class="simple">
+<li><p>nincsen</p></li>
 </ul>
 </dd>
-<dt><strong>Kötelező kapcsolók:</strong></dt>
-<dd><ul class="first last simple">
-<li>nincsen</li>
+<dt><strong>Kötelező kapcsolók:</strong></dt><dd><ul class="simple">
+<li><p>nincsen</p></li>
 </ul>
 </dd>
-<dt><strong>Opcionális kapcsolók:</strong></dt>
-<dd><ul class="first last simple">
-<li><em>-r (–run_scripts):</em> Végrehajtja a modulok initscriptjeit is.</li>
-<li><em>-t (–include_templates):</em> Frissíti/Átmásolja a resource-okat is.</li>
+<dt><strong>Opcionális kapcsolók:</strong></dt><dd><ul class="simple">
+<li><p><em>-r (–run_scripts):</em> Végrehajtja a modulok initscriptjeit is.</p></li>
+<li><p><em>-t (–include_templates):</em> Frissíti/Átmásolja a resource-okat is.</p></li>
 </ul>
 </dd>
 </dl>
@@ -206,11 +193,11 @@ futtatni, akkor mellékelni kell a parancs mellé a meglfelő kapcsolót.</p>
 </ul>
 
   <h4>Előző témakör</h4>
-  <p class="topless"><a href="modules/custom_module.html"
-                        title="előző fejezet">Saját modul fejlesztése</a></p>
+  <p class="topless"><a href="basics.html"
+                        title="előző fejezet">Ilx alapok</a></p>
   <h4>Következő témakör</h4>
-  <p class="topless"><a href="deployment.html"
-                        title="következő fejezet">Resource-ok kezelése a deployment során</a></p>
+  <p class="topless"><a href="modules.html"
+                        title="következő fejezet">Modulok</a></p>
   <div role="note" aria-label="source link">
     <h3>Ez az Oldal</h3>
     <ul class="this-page-menu">
@@ -219,13 +206,11 @@ futtatni, akkor mellékelni kell a parancs mellé a meglfelő kapcsolót.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Gyorskeresés</h3>
+  <h3 id="searchlabel">Gyorskeresés</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Ok" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -241,17 +226,17 @@ futtatni, akkor mellékelni kell a parancs mellé a meglfelő kapcsolót.</p>
           <a href="genindex.html" title="Általános tárgymutató"
              >nyitóoldal</a></li>
         <li class="right" >
-          <a href="deployment.html" title="Resource-ok kezelése a deployment során"
+          <a href="modules.html" title="Modulok"
              >következő</a> |</li>
         <li class="right" >
-          <a href="modules/custom_module.html" title="Saját modul fejlesztése"
+          <a href="basics.html" title="Ilx alapok"
              >előző</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Ilx 0.1.0 dokumentáció</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2019, Attila Nagy.
-      <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2 használatával készült.
+      <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.1 használatával készült.
     </div>
   </body>
 </html>

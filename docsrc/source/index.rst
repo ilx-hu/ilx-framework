@@ -9,7 +9,7 @@ webes alkalmazás alapfunkcionalitásainak implementációja. A keretrendszer a 
 plusz rétegként épülve kínálja a szolgáltatásait.
 
 Ezen a weboldalon az Ilx dokumentációját találod, ami részletesen bemutatja a keretrendszer működését. Ajánlott, hogy
-először az Alapok oldalon kezd a megismerését, csak ezután éri meg a további fejezetek tanyulmányozása.
+először az Alapok oldalon kezd a megismerését, csak ezután éri meg a további fejezetek tanulmányozása.
 
 
 
@@ -21,7 +21,7 @@ Tartalom
    :maxdepth: 3
 
    basics
-   resources
-   modules
    commands
+   modules
+   resources
    deployment

@@ -7,6 +7,8 @@ Parancsok
    :maxdepth: 1
 
 
+.. _quick-start-cmd-label:
+
 quick-start
 ============
 
@@ -39,6 +41,8 @@ Példák
 
     php bin/ilx.php quick-start
 
+
+.. _install-cmd-label:
 
 install
 =========
@@ -73,13 +77,14 @@ Példák
     php bin/ilx.php install modules.json
 
 
+.. _update-cmd-label:
 
 update
 ========
 
 A paraméterben megadott modules.json alapján frissíti az alkalmazást. Az update futattásánál alapvetően csak a
 Kodi konfiguráció frissül. Ha szeretnénk valamilyen resource-t is frissíteni vagy modul inicializáló szkripteket
-futtatni, akkor mellékelni kell a parancs mellé a meglfelő kapcsolót.
+futtatni, akkor mellékelni kell a parancs mellé a megfelelő kapcsolót.
 
 
 Kapcsolók és paraméterek

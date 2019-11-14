@@ -41,7 +41,8 @@ class SecurityModule extends IlxModule
             "expiration_time" => 900,
             "registration" => true,
             "admin" => "admin@ilx.hu",
-            "permissions" => []
+            "permissions" => [],
+            "views" => []
         ];
     }
 
@@ -54,6 +55,7 @@ class SecurityModule extends IlxModule
 
     function routes()
     {
+        // TODO: csak ahhoz a renderhez adunk route-t amihez létezik view
         $routes = [
 
         ];
