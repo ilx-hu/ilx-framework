@@ -18,4 +18,5 @@ Modul lista
 
    modules/twig_module
    modules/resource_module
+   modules/menu_module
    modules/custom_module

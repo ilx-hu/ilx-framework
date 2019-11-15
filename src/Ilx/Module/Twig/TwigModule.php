@@ -23,7 +23,8 @@ class TwigModule extends IlxModule
     {
         return [
             "path" => Ilx::viewPath(),
-            "default" => TwigModule::FRAME_PATH."frame.twig"
+            "default" => TwigModule::FRAME_PATH."frame.twig",
+            "content_providers" => []
         ];
     }
 
@@ -91,7 +92,8 @@ class TwigModule extends IlxModule
             "class_name" => TwigServiceProvider::class,
             "parameters" => [
                 Twig::TWIG_PATH => $this->parameters["path"],
-                Twig::PAGE_TEMPLATE_PATH => $this->frames
+                Twig::PAGE_TEMPLATE_PATH => $this->frames,
+                Twig::CONTENT_PROVIDERS => $this->parameters["content_providers"]
             ]
 
         ]];
@@ -107,5 +109,10 @@ class TwigModule extends IlxModule
     {
         // A twig modul nem ad hozzá hook-okat a rendszerhez
         return [];
+    }
+
+
+    public function addContentProvider($contentProvider) {
+        $this->parameters["content_providers"][] = $contentProvider;
     }
 }
