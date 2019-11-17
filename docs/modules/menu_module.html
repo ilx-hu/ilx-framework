@@ -79,7 +79,7 @@ szintig az almenü pontok.</p>
 </dd>
 </dl>
 </li>
-<li><p>url_prefix: Url prefix a route-okhoz</p></li>
+<li><p>table: Tábla neve ami a menü-t tartalmazza</p></li>
 </ul>
 <p>Példa a paraméterek egy beállítására:
 .. code-block:</p>
@@ -89,42 +89,50 @@ szintig az almenü pontok.</p>
         <span class="p">{</span>
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;home&quot;</span><span class="p">,</span>
             <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Kezdőlap&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;route&quot;</span><span class="p">:</span> <span class="s2">&quot;renderHome&quot;</span><span class="p">,</span>
             <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[]</span>
         <span class="p">},</span>
         <span class="p">{</span>
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;contacts&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;route&quot;</span><span class="p">:</span> <span class="s2">&quot;renderContacts&quot;</span><span class="p">,</span>
             <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Kapcsolat&quot;</span><span class="p">,</span>
             <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="p">{</span>
-                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;colleagues&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Munkatársak&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[]</span>
-                <span class="p">},</span>
-                <span class="p">{</span>
                     <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;addresses&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Címek&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;route&quot;</span><span class="p">:</span> <span class="s2">&quot;renderAddresses&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[]</span>
                 <span class="p">},</span>
             <span class="p">}</span>
         <span class="p">},</span>
     <span class="p">},</span>
-    <span class="c1"># Url prefix a route-okhoz</span>
-    <span class="s2">&quot;url_prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;/page&quot;</span><span class="p">,</span>
-
+    <span class="s2">&quot;table&quot;</span><span class="p">:</span> <span class="s2">&quot;menu&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Ebben az esetben a menüpontokhoz kapcsolódó url-ek:</p>
-<ul class="simple">
-<li><p>Kezdőlap: „/page/home”</p></li>
-<li><p>Munkatársak: „/page/colleagues”</p></li>
-<li><p>Címek: „/page/addresses”</p></li>
-</ul>
 </div>
 <div class="section" id="hasznalata">
 <h2>Használata<a class="headerlink" href="#hasznalata" title="Hivatkozás erre a fejezetcímre">¶</a></h2>
 <p>modules.json paraméterek beállítása után</p>
-<p>A menüt a twig fájlokban az app.menu alatt lehet elérni. Példa egy menü generálásra</p>
+<p>A menüt a twig fájlokban az app.menu alatt lehet elérni. Példa egy menü generálásra:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ul</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;main-menu&quot;</span><span class="o">&gt;</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="s2">&quot;includes/menu-links.html&quot;</span> <span class="k">with</span> <span class="p">{</span><span class="s1">&#39;subMenus&#39;</span><span class="p">:</span><span class="n">app</span><span class="o">.</span><span class="n">menu</span><span class="o">.</span><span class="n">subMenus</span><span class="p">()}</span> <span class="n">only</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;!--includes/menu-links.html--&gt;
+{% for subMenu in subMenus %}
+    &lt;li&gt;
+        &lt;a href=&quot;{{ url_generate(subMenu.route) }}&quot;&gt;{{ subMenu.title }}&lt;/a&gt;
+        {% if subMenu.hasSubMenus %}
+            &lt;ul&gt;
+                {% include &quot;includes/menu-links.html&quot; with {&#39;subMenus&#39;: subMenu.subMenus()} %}
+            &lt;/ul&gt;
+        {% endif %}
+    &lt;/li&gt;
+{% endfor %}
+</pre></div>
+</div>
 </div>
 </div>
 

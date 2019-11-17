@@ -42,7 +42,7 @@ Két paramétert lehet beállítani a Menu modulnak:
     * name: Egyedi név ami alapján hivatkozni lehet rá
     * title: A megjeleníteni kívánt menü cím
     * children: Ha vannak almenük, akkor ezen belül kell elhelyezni. **Ha nincsenek almenüpontok akkor is szerepelnie kell!**
-* url_prefix: Url prefix a route-okhoz
+* table: Tábla neve ami a menü-t tartalmazza
 
 Példa a paraméterek egy beállítására:
 .. code-block::
@@ -53,43 +53,51 @@ Példa a paraméterek egy beállítására:
             {
                 "name": "home",
                 "title": "Kezdőlap",
+                "route": "renderHome",
                 "children": []
             },
             {
                 "name": "contacts",
+                "route": "renderContacts",
                 "title": "Kapcsolat",
                 "children": {
                     {
-                        "name": "colleagues",
-                        "title": "Munkatársak",
-                        "children": []
-                    },
-                    {
                         "name": "addresses",
                         "title": "Címek",
+                        "route": "renderAddresses",
                         "children": []
                     },
                 }
             },
         },
-        # Url prefix a route-okhoz
-        "url_prefix": "/page",
-
+        "table": "menu"
     }
 
-Ebben az esetben a menüpontokhoz kapcsolódó url-ek:
-
-* Kezdőlap: "/page/home"
-* Munkatársak: "/page/colleagues"
-* Címek: "/page/addresses"
 
 Használata
 ========================
 
 modules.json paraméterek beállítása után
 
-A menüt a twig fájlokban az app.menu alatt lehet elérni. Példa egy menü generálásra
+A menüt a twig fájlokban az app.menu alatt lehet elérni. Példa egy menü generálásra:
 
 
+.. code-block::
 
+    <ul class="main-menu">
+        {% include "includes/menu-links.html" with {'subMenus':app.menu.subMenus()} only %}
+    </ul>
 
+.. code-block::
+
+    <!--includes/menu-links.html-->
+    {% for subMenu in subMenus %}
+        <li>
+            <a href="{{ url_generate(subMenu.route) }}">{{ subMenu.title }}</a>
+            {% if subMenu.hasSubMenus %}
+                <ul>
+                    {% include "includes/menu-links.html" with {'subMenus': subMenu.subMenus()} %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
