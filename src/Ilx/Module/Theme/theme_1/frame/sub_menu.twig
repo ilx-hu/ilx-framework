@@ -1,0 +1,25 @@
+{#
+
+Feladat:
+    Almenük generálása.
+
+Input:
+    - subMenus: Egy lista, ami az almenüket tartalmazza. Minden almenünél adott a title, route, subMenus()
+
+Leírás:
+    title: tartalmazza a megjelenítendő menü címet
+    route: tartalmazza a link nevét. A tényleges linkre fordítást az url_generate metódussal lehet végrehajtani
+    subMenus(): Ha vannak almenüi az aktuális menüpontnak, akkor azoket ez a metódus visszadja
+
+#}
+
+{% for subMenu in subMenus %}
+    <li>
+        <a href="{{ url_generate(subMenu.route) }}">{{ subMenu.title }}</a>
+        {% if subMenu.hasSubMenus %}
+            <ul>
+                {% include "/frame/sub_menu.twig" with {'subMenus': subMenu.subMenus()} %}
+            </ul>
+        {% endif %}
+    </li>
+{% endfor %}
