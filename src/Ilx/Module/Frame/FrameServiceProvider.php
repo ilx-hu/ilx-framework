@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Ilx\Module\Menu;
+namespace Ilx\Module\Frame;
 
 
-use Ilx\Module\Menu\Model\Menu;
+use Ilx\Module\Frame\Model\Frame;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
-class MenuServiceProvider implements ServiceProviderInterface
+class FrameServiceProvider implements ServiceProviderInterface
 {
     /**
      * @var array
@@ -28,8 +28,8 @@ class MenuServiceProvider implements ServiceProviderInterface
     public function register(Container $pimple)
     {
         $configuration = $this->configuration;
-        $pimple['menu'] = function ($c) use($configuration) {
-            return new Menu($configuration);
+        $pimple['frame'] = function ($c) use($configuration) {
+            return new Frame($configuration);
         };
     }
 }

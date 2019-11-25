@@ -93,12 +93,35 @@ class MenuModule extends IlxModule
     {
         print("Creating menu structure...\n");
 
+        # struktúra kiiratása és node_id hozzáadása
+        function rc_tree(&$node, $level = 0) {
+            $t = $node["title"];
+            $n = $node["name"];
+            $r = $node["route"];
+            print(str_repeat("\t", $level+1)."- $t (name=$n, route=$r)\n");
+            foreach ($node["children"] as $child) {
+                rc_tree($child, $level+1);
+            }
+        }
+        foreach ($this->parameters["structure"] as $menu_item) {
+            rc_tree($menu_item);
+        }
+
         $roots = [
-            "name"  => "root",
-            "title" => "Root",
-            "route" => null,
-            "children" => $this->parameters["structure"]
+            "name"      => "root",
+            "title"     => "Root",
+            "route"     => null,
+            "children"  => $this->parameters["structure"]
         ];
+
+        /*
+         * Töröljük, ha van korábbi elem
+         */
+        /** @var \PDO $pdo */
+        $pdo = ConnectionManager::getInstance()->getDefault()->getDatabase();
+        $table_name = $this->parameters["table"];
+        $ps = $pdo->prepare("TRUNCATE TABLE $table_name");
+        $ps->execute();
 
 
         Tree::convert(new ArraySource([

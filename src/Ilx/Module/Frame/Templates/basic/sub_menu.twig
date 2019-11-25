@@ -13,12 +13,12 @@ Leírás:
 
 #}
 
-{% for subMenu in subMenus %}
+{% for menu_item in subMenus %}
     <li>
-        <a href="{{ url_generate(subMenu.route) }}">{{ subMenu.title }}</a>
-        {% if subMenu.hasSubMenus %}
+        <a href="{{ url_generate(menu_item.data()["route"]) }}">{{ menu_item.data()["title"] }}</a>
+        {% if menu_item.children()|length > 0 %}
             <ul>
-                {% include "/frame/sub_menu.twig" with {'subMenus': subMenu.subMenus()} %}
+                {% include "/basic/sub_menu.twig" with {'subMenus': menu_item.children()} %}
             </ul>
         {% endif %}
     </li>

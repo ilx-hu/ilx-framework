@@ -12,6 +12,8 @@ use PandaBase\Connection\ConnectionManager;
 
 class Menu
 {
+    const ROOT_ID = 1;
+
     /**
      * @var Node
      */
@@ -19,33 +21,20 @@ class Menu
 
     public function __construct($configuration)
     {
+        $table_name = $configuration["table"];
+
         $this->menu_tree = Tree::from(new NestedSetSource([
             NestedSetSource::DB         => ConnectionManager::getInstance()->getConnection()->getDatabase(),
-            NestedSetSource::TABLE_NAME => $configuration["table"],
+            NestedSetSource::TABLE_NAME => $table_name,
             NestedSetSource::NODE_ID    => "node_id",
             NestedSetSource::ROOT_ID    => 1,
             NestedSetSource::LEFT       => "node_lft",
             NestedSetSource::RIGHT      => "node_rgt"
-        ]));
+        ]), self::ROOT_ID);
+        $this->menu_tree->subtree();
     }
 
-    public function subMenus() {
+    public function children() {
         return $this->menu_tree->children();
-    }
-
-    public function hasSubMenus() {
-        return count($this->menu_tree->children()) > 0;
-    }
-
-    public function title() {
-        return $this->menu_tree->data()["title"];
-    }
-
-    public function name() {
-        return $this->menu_tree->data()["name"];
-    }
-
-    public function route() {
-        return $this->menu_tree->data()["route"];
     }
 }

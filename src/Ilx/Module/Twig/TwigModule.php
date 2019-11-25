@@ -11,6 +11,7 @@ use Ilx\Module\Resource\ResourceModule;
 use Ilx\Module\Resource\ResourcePath;
 use Kodiak\ServiceProvider\TwigProvider\Twig;
 use Kodiak\ServiceProvider\TwigProvider\TwigServiceProvider;
+use Kodiak\ServiceProvider\UrlGeneratorProvider\UrlGeneratorProvider;
 
 class TwigModule extends IlxModule
 {
@@ -70,13 +71,12 @@ class TwigModule extends IlxModule
 
     function bootstrap(ModuleManager $moduleManager)
     {
-        // A default twig template-ket átmásoljuk
-        $this->addTemplatePath(__DIR__.DIRECTORY_SEPARATOR."Templates", null, false);
+        # Nincs mit tenni, ha vannak alap twig fájlok, azokat külön a frame modulban kell beállítani
     }
 
     function initScript($include_templates)
     {
-
+        # Nincs mit tenni, az esetleges twig fájlokat a resource modul másolja
     }
 
     function routes()
@@ -87,16 +87,20 @@ class TwigModule extends IlxModule
 
     function serviceProviders()
     {
-        $this->frames["default"] = $this->parameters["default"];
-        return [[
-            "class_name" => TwigServiceProvider::class,
-            "parameters" => [
-                Twig::TWIG_PATH => $this->parameters["path"],
-                Twig::PAGE_TEMPLATE_PATH => $this->frames,
-                Twig::CONTENT_PROVIDERS => $this->parameters["content_providers"]
+        return [
+            [
+                "class_name" => TwigServiceProvider::class,
+                "parameters" => [
+                    Twig::TWIG_PATH => $this->parameters["path"],
+                    Twig::PAGE_TEMPLATE_PATH => $this->frames,
+                    Twig::CONTENT_PROVIDERS => $this->parameters["content_providers"]
+                ],
+            ],
+            [
+                "class_name" => UrlGeneratorProvider::class,
+                "parameters" => [],
             ]
-
-        ]];
+        ];
     }
 
     function environmentalVariables()
@@ -110,7 +114,6 @@ class TwigModule extends IlxModule
         // A twig modul nem ad hozzá hook-okat a rendszerhez
         return [];
     }
-
 
     public function addContentProvider($contentProvider) {
         $this->parameters["content_providers"][] = $contentProvider;
