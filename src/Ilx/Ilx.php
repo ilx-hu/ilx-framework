@@ -13,8 +13,6 @@ class Ilx
 {
     const CONFIG_FILENAME = "conf.json";
 
-    private static $configPath = null;
-
     private static $rootPath = null;
 
     private static $configuration = null;
@@ -139,6 +137,41 @@ class Ilx
      */
     public static function webPath() {
         return self::rootPath().DIRECTORY_SEPARATOR."web";
+    }
+
+    /**
+     * Css fájlokat tartalmazó könyvtár elérési útvonala.
+     *
+     * @param bool $relative Ha igaz, akkor a webPath-hoz képesti relatív útvonalat adja vissza.
+     * @return string
+     */
+    public static function cssPath($relative = false) {
+        if($relative) {
+            return DIRECTORY_SEPARATOR."css";
+        }
+        return self::webPath().DIRECTORY_SEPARATOR."css";
+    }
+
+    /**
+     * Js fájlokat tartalmazó könyvtár elérési útvonala.
+     *
+     * @param bool $relative Ha igaz, akkor a webPath-hoz képesti relatív útvonalat adja vissza.
+     * @return string
+     */
+    public static function jsPath($relative = false) {
+        if($relative) {
+            return DIRECTORY_SEPARATOR."css";
+        }
+        return self::webPath().DIRECTORY_SEPARATOR."js";
+    }
+
+    /**
+     * Kép fájlokat tartalmazó könyvtár elérési útvonala.
+     *
+     * @return string
+     */
+    public static function imagesPath() {
+        return self::webPath().DIRECTORY_SEPARATOR."images";
     }
 
     /**

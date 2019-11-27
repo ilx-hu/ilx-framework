@@ -88,29 +88,24 @@ class ResourceModule extends IlxModule
         // Csak akkor másolunk, ha be van kapcsolva a template-k másolása
         if($include_templates) {
             print("Copying resources ...\n");
-            $mode = Ilx::getConfiguration()->get()[KodiConf::ENVIRONMENT]["mode"];
-            if($mode == KodiConf::ENV_PRODUCTION) {
-                $web_path = $this->parameters["production"]["web_path"];
-                $view_path = $this->parameters["production"]["views_path"];
-            } else {
-                $web_path = $this->parameters["development"]["web_path"];
-                $view_path = $this->parameters["development"]["views_path"];
-            }
 
             // Létrehozzuk a szükséges mappákat
-            @mkdir($web_path);
-            @mkdir($view_path);
+            @mkdir(Ilx::webPath());
+            @mkdir(Ilx::viewPath());
+            @mkdir(Ilx::cssPath());
+            @mkdir(Ilx::jsPath());
+            @mkdir(Ilx::imagesPath());
 
             print("\tCopying twig files ...\n");
-            ResourceModule::copyResources($this->resources["views"], $view_path);
+            ResourceModule::copyResources($this->resources["views"], Ilx::viewPath());
             print("\tCopying css files...\n");
-            ResourceModule::copyResources($this->resources["css"], $web_path.DIRECTORY_SEPARATOR."css");
+            ResourceModule::copyResources($this->resources["css"], Ilx::cssPath());
             print("\tCopying js files...\n");
-            ResourceModule::copyResources($this->resources["js"], $web_path.DIRECTORY_SEPARATOR."js");
+            ResourceModule::copyResources($this->resources["js"], Ilx::jsPath());
             print("\tCopying image files...\n");
-            ResourceModule::copyResources($this->resources["images"], $web_path.DIRECTORY_SEPARATOR."images");
+            ResourceModule::copyResources($this->resources["images"], Ilx::imagesPath());
             print("\tCreating web directory...\n");
-            ResourceModule::recursive_copy(__DIR__.DIRECTORY_SEPARATOR."Templates", $web_path, ResourcePath::HARD_COPY);
+            ResourceModule::recursive_copy(__DIR__.DIRECTORY_SEPARATOR."Templates", Ilx::webPath(), ResourcePath::HARD_COPY);
         }
         else {
             print("Copying resources has been skipped\n");

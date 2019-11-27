@@ -125,7 +125,7 @@ class MenuModule extends IlxModule
 
 
         Tree::convert(new ArraySource([
-            ArraySource::NODE_ID => "role_id",
+            ArraySource::NODE_ID => "name",
             ArraySource::CHILDREN=> "children",
             ArraySource::ROOT_ID => 1
         ], $roots), new NestedSetSource([

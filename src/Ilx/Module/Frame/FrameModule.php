@@ -4,8 +4,11 @@
 namespace Ilx\Module\Frame;
 
 
+use Ilx\Ilx;
 use Ilx\Module\IlxModule;
 use Ilx\Module\ModuleManager;
+use Ilx\Module\Resource\ResourceModule;
+use Ilx\Module\Resource\ResourcePath;
 use Ilx\Module\Twig\TwigModule;
 
 class FrameModule extends IlxModule
@@ -89,14 +92,69 @@ class FrameModule extends IlxModule
             $default = $this->parameters[FrameModule::DEFAULT_FRAME];
             $twig_module->setFrame("default", DIRECTORY_SEPARATOR.$default.DIRECTORY_SEPARATOR."frame.twig");
             print("\t- '$default' has been set as default frame\n");
+
+
+            print("\tRegistering stylesheets...\n");
+
         }
         else {
             print("\t Bootstraping has been skipped, because copy_on_install parameter is false.\n");
         }
+
+
     }
 
     function initScript($include_templates)
     {
         // A fájlok másolását a Twig modulon keresztül a resource modul végzi, így itt nincs tennivaló.
+    }
+
+    public function addStyleSheet($group_name, $stylesheet_path) {
+
+        $css_files = self::iterateOnDir($stylesheet_path, null);
+        foreach ($css_files as $css_file) {
+            $this->parameters[FrameModule::STYLESHEETS][] =
+                Ilx::cssPath(true).DIRECTORY_SEPARATOR.
+                $group_name.
+                $css_file;
+        }
+
+        /** @var ResourceModule $resource_module */
+        $resource_module = ModuleManager::get("Resource");
+        $resource_module->addCssPath($stylesheet_path, $group_name, ResourcePath::HARD_COPY);
+    }
+
+    public function addJavascript($group_name, $javascript_path) {
+
+        $js_files = self::iterateOnDir($javascript_path, null);
+        foreach ($js_files as $js_file) {
+            $this->parameters[FrameModule::JAVASCRIPTS][] =
+                Ilx::jsPath(true).DIRECTORY_SEPARATOR.
+                $group_name.DIRECTORY_SEPARATOR.
+                $js_file;
+        }
+
+
+        /** @var ResourceModule $resource_module */
+        $resource_module = ModuleManager::get("Resource");
+        $resource_module->addCssPath($javascript_path, $group_name, ResourcePath::HARD_COPY);
+    }
+
+    private static function iterateOnDir($base, $dir_offset) {
+        $dir = opendir($base.DIRECTORY_SEPARATOR.$dir_offset);
+        $res = [];
+        while(( $file = readdir($dir)) ) {
+            if (( $file != '.' ) && ( $file != '..' )) {
+                $file_path = $base. DIRECTORY_SEPARATOR. $dir_offset . DIRECTORY_SEPARATOR . $file;
+                if ( is_dir($file_path) ) {
+                    $res = array_merge($res, self::iterateOnDir($base, $dir_offset . DIRECTORY_SEPARATOR . $file));
+                }
+                else {
+                    $res[] = $dir_offset . DIRECTORY_SEPARATOR . $file;
+                }
+            }
+        }
+        closedir($dir);
+        return $res;
     }
 }

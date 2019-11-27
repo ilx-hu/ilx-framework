@@ -50,7 +50,7 @@ class MailerModule extends IlxModule
                     "auth_mode" => $this->parameters["auth_mode"],
                     "encryption"=> $this->parameters["encryption"],
                     "source"    => $this->parameters["source"],
-                    "templates" => $this->parameters["template"]
+                    "templates" => $this->parameters["templates"]
                 ]
             ]
         ];
