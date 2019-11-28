@@ -92,8 +92,8 @@ class Configuration
      *
      * @param array $route
      */
-    public function addRoute($route) {
-        $this->config[KodiConf::ROUTES][] = $route;
+    public function addRoute($route_name, $route) {
+        $this->config[KodiConf::ROUTES][$route_name] = $route;
     }
 
     /**

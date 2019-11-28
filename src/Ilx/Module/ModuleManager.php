@@ -126,8 +126,8 @@ class ModuleManager
             }
 
             // Útvonalak hozzáadása
-            foreach ($module->routes() as $route) {
-                $configuration->addRoute($route);
+            foreach ($module->routes() as $route_name => $route) {
+                $configuration->addRoute($route_name, $route);
             }
         }
         return $configuration;
