@@ -1,7 +1,7 @@
 {
-    "name": "ilx-dev-team/cityportal",
-    "type": "application",
-    "description": "CityPortal framework",
+    "name": "ilx/ilx-framework",
+    "type": "application framework",
+    "description": "Ilx framework",
     "authors": [
         {
             "name": "Attila Nagy",
