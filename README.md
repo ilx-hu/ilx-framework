@@ -2,7 +2,7 @@
 
 ## telepítés
 ```
-composer attilagyurman/ilx.framework
+composer attilagyurman/ilx-framework
 ```
 
 ## Dokumentáció
